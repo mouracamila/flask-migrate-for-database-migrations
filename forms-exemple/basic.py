@@ -2,7 +2,7 @@ from flask import Flask, render_template, session, redirect, url_for
 from flask_wtf import FlaskForm
 from wtforms import (StringField,BooleanField,DateTimeField,RadioField,
                     SelectField,TextField,TextAreaField,SubmitField)
-from wtforms.valodators import DataRequired
+from wtforms.validators import DataRequired
 
 app = Flask(__name__)
 
@@ -11,9 +11,9 @@ app.config['SECRET_KEY'] = 'mykey'
 class InfoForm(FlaskForm):
 
     breed = StringField('What breed are you?',validators=[DataRequired()])
-    neutered = BooleanField("HAve you been neutered?")
+    neutered = BooleanField("Have you been neutered?")
     mood = RadioField('Please choose your mood:',choices=[('mood_one', 'Happy'),('mood_two','Sad')])
-    food_choice = SelectField(u'Pick you favorite food:', choises=[('chi','Chicken'),('bf','Beef'),('fish','Fish')])
+    food_choice = SelectField(u'Pick you favorite food:', choices=[('chi','Chicken'),('bf','Beef'),('fish','Fish')])
 
     feedback = TextAreaField()
     submit = SubmitField('Submit')
@@ -21,7 +21,7 @@ class InfoForm(FlaskForm):
 @app.route('/',methods=['GET','POST'])
 def index():
 
-    form =InfoForm()
+    form = InfoForm()
     if form.validate_on_submit():
 
         session['breed'] = form.breed.data
@@ -31,7 +31,6 @@ def index():
         session['feedback'] = form.feedback.data
 
         return redirect(url_for('thankyou'))
-
     return render_template('index.html',form=form)
 
 @app.route('/thankyou')
