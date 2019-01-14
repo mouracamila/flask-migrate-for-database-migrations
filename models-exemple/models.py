@@ -8,7 +8,7 @@ basedir = os.path.obspath(os.path.dirname(__file__))
 app = Flas(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' +os.path.join(basedir, 'data.sqlite')
-app.config['SQLALCHEMU_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 Migrate(app,db)
