@@ -1,5 +1,5 @@
 # cats --> views.py
-from import Blueprint,render_template,redirect,url_for
+from flask import Blueprint,render_template,redirect,url_for
 from myproject import db
 from myproject.cats.forms import AddForm,DelForm
 from myproject.models import Cat
@@ -13,16 +13,14 @@ def add():
     if form.validate_on_submit():
         name = form.name.data
 
-    name = form.name.data
+        # add new cat to database
+        new_cat = Cat(name)
+        db.session.add(new_cat)
+        db.session.commit()
 
-    # add new cat to database
-    new_cat = Cat(name)
-    db.session.add(new_cat)
-    db.session.commit()
+        return redirect(url_for('cats.list'))
 
-    return redirect(url_for('list_cat'))
-
-return render_template('add.html',form=form)
+    return render_template('add.html',form=form)
 
 @cats_blueprint.route('/list')
 def list():
@@ -36,9 +34,10 @@ def delete():
 
     if form.validate_on_submit():
         id = form.id.data
-        pup = Cat.query.get(id)
+        cat = Cat.query.get(id)
         db.session.delete(cat)
         db.session.commit()
 
-        return redirect(url_for(cats.list))
+        return redirect(url_for("cats.list"))
+
     return render_template('delete.html',form=form)

@@ -8,7 +8,7 @@ class Cat(db.Model):
 
     id = db.Column(db.Integer,primary_key=True)
     name = db.Column(db.Text)
-    owner = db.relationship('Owner',backref='cat',userlis=False)
+    owner = db.relationship('Owner',backref='cat',uselist=False)
 
     def __init__(self,name):
         self.name = name
@@ -23,7 +23,7 @@ class Owner(db.Model):
 
     __tablename__ = 'owners'
 
-    id = db.Column(db.Interger,primary_key=True)
+    id = db.Column(db.Integer,primary_key=True)
     name = db.Column(db.Text)
 
     cat_id = db.Column(db.Integer,db.ForeignKey('cats.id'))
