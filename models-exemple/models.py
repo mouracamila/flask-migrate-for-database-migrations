@@ -13,7 +13,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 Migrate(app,db)
 
-class Puppy(db.Model):
+class Cat(db.Model):
 
     __tablename__ = 'cats'
 
@@ -24,7 +24,7 @@ class Puppy(db.Model):
     toys = db.relationship('Toy',backref='cat',lazy= 'dynamic')
     #ONE TO ONE
     #ONE PUPPY --- ONE OWNER
-    owner = db.relationship('Owner',backref='cat',userlis=False)
+    owner = db.relationship('Owner',backref='cat',uselist=False)
 
     def __init__(self,name):
         self.name = name
