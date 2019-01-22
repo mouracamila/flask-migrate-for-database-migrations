@@ -46,7 +46,6 @@ def login():
 
     return redirect(url_for('welcome'))
 
-
 if __name__ == '__main__':
     app.run(ssl_context='adhoc')
     #app.run()
